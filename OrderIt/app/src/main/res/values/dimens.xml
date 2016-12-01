@@ -1,0 +1,18 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="order_text_size">20sp</dimen>
+    <dimen name="insert_drink_text_size">16sp</dimen>
+    <dimen name="insert_drink_leave_button_width">80dp</dimen>
+    <dimen name="insert_drink_leave_button_height">60dp</dimen>
+    <dimen name="new_order_button">20dp</dimen>
+    <dimen name="insert_textview_width">120dp</dimen>
+    <dimen name="scrollview_height">350dp</dimen>
+    <dimen name="scrollview_height_bottles">300dp</dimen>
+    <dimen name="text_size_for_lists">16sp</dimen>
+    <dimen name="text_size_for_customers_lists">12sp</dimen>
+    <dimen name="text_headline">20sp</dimen>
+
+</resources>

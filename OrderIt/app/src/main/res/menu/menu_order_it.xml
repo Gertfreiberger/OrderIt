@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="orderit.orderit.OrderIt">
+    <item
+        android:id="@+id/action_drinks"
+        android:orderInCategory="100"
+        android:title="@string/action_drinks"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_bottles"
+        android:orderInCategory="100"
+        android:title="@string/action_bottles"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_customer"
+        android:orderInCategory="100"
+        android:title="@string/action_customer"
+        app:showAsAction="never" />
+</menu>
+

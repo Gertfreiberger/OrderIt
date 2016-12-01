@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">OrderIt</string>
+    <string name="action_drinks">Schnäpse</string>
+    <string name="action_bottles">Flaschen</string>
+    <string name="action_customer">Kunden</string>
+    <string name="textview_test">Hello World!</string>
+    <string name="title_activity_insert_drinks">Schnäpse einfügen/löschen</string>
+    <string name="title_activity_insert_bottles">Flaschen einfügen/löschen</string>
+    <string name="title_activity_insert_customers">Kunden einfügen/löschen</string>
+    <string name="title_activity_insert_order">Neue Bestellung</string>
+    <string name="textview_customer_order_headline">Bestellungen</string>
+
+
+    //insertDrinks
+
+    <string name="textview_new_drink">Neuer Schnaps: </string>
+    <string name="button_new_drink">Speichern</string>
+    <string name="button_leave_insert_drink">OK</string>
+
+    //insertBottles
+    <string name="textview_new_bottle">Neue Flasche: </string>
+    <string name="textview_new_bottle_size">Größe: </string>
+
+    //insertCustomers
+    <string name="textview_new_customer">Neuer Kunde: </string>
+
+
+
+</resources>
+
