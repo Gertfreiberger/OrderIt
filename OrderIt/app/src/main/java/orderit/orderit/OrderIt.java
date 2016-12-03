@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
-
 import orderit.orderit.helpclasses.Customer;
 import orderit.orderit.helpclasses.DatabaseHandler;
 import orderit.orderit.insertintents.InsertBottles;
@@ -34,6 +33,13 @@ public class OrderIt extends AppCompatActivity {
         customer_list_ = new ArrayList<Customer>();
         dbase_ = new DatabaseHandler(getApplicationContext());
         initDBase();
+        createCustomerList();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
         createCustomerList();
     }
 

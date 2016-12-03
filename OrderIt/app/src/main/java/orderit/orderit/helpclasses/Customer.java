@@ -59,6 +59,7 @@ public class Customer implements View.OnClickListener{
     public void onClick(View view) {
         Intent order = new Intent(context_, InsertOrder.class);
         order.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        order.putExtra("customer_ordered", name_);
         context_.startActivity(order);
     }
 }

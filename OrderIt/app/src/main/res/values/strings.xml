@@ -24,6 +24,13 @@
     //insertCustomers
     <string name="textview_new_customer">Neuer Kunde: </string>
 
+    //insertOrders
+    <string name="textview_order_number">Anzahl:</string>
+    <string name="button_order_drinks">Schnäpse</string>
+    <string name="button_order_bottles">Flaschen</string>
+    <string name="button_order_back">Zurück</string>
+    <string name="button_order_finish">OK</string>
+
 
 
 </resources>

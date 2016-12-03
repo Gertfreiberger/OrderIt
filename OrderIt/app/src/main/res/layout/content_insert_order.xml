@@ -13,4 +13,109 @@
     tools:context="orderit.orderit.insertintents.InsertOrder"
     tools:showIn="@layout/activity_insert_order">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:weightSum="7"
+        android:layout_alignParentStart="true">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero_dp"
+            android:layout_weight="5"
+            android:id="@+id/listview_insert_order"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero_dp"
+            android:layout_weight="2"
+            android:weightSum="3">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/zero_dp"
+                android:layout_height="match_parent"
+                android:weightSum="2"
+                android:layout_weight="1">
+
+                <TextView
+                    android:text=""
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/zero_dp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/order_text_size"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:id="@+id/textview_insert_order_drink" />
+
+                <TextView
+                    android:text=""
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/zero_dp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/order_text_size"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:id="@+id/textview_insert_order_bottle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/zero_dp"
+                android:layout_height="match_parent"
+                android:weightSum="2"
+                android:layout_weight="1">
+
+                <TextView
+                    android:text="@string/textview_order_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/order_text_size"
+                    android:gravity="center"
+                    android:id="@+id/textview_insert_order_number" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:ems="4"
+                    android:id="@+id/text_box_insert_order" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/zero_dp"
+                android:layout_height="match_parent"
+                android:weightSum="2"
+                android:layout_weight="1">
+
+                <Button
+                    android:text="@string/button_order_bottles"
+                    android:layout_width="@dimen/insert_order_toggle_leave_button_width"
+                    android:layout_height="@dimen/insert_drink_leave_button_height"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:id="@+id/button_insert_order_next"
+                    android:onClick="bottleNext"/>
+
+                <Button
+                    android:text="@string/button_order_finish"
+                    android:layout_width="@dimen/insert_order_toggle_leave_button_width"
+                    android:layout_height="@dimen/insert_drink_leave_button_height"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/button_insert_order_finish"
+                    android:onClick="leaveInsertOrder"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>

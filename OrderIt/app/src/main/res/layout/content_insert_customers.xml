@@ -18,12 +18,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
+        android:weightSum="10"
         android:layout_alignParentStart="true">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_weight="2"
+            android:layout_height="@dimen/zero_dp">
 
 
             <TextView
@@ -60,8 +62,9 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/scrollview_height"
+            android:layout_height="@dimen/zero_dp"
             android:paddingTop="@dimen/activity_horizontal_margin"
+            android:layout_weight="6.8"
             android:paddingBottom="@dimen/activity_horizontal_margin">
 
 
@@ -75,6 +78,7 @@
         <Button
             android:text="@string/button_leave_insert_drink"
             android:textSize="@dimen/insert_drink_text_size"
+            android:layout_weight="0.2"
             android:textColor="@color/colorBlack"
             android:layout_width="@dimen/insert_drink_leave_button_width"
             android:layout_height="@dimen/insert_drink_leave_button_height"
