@@ -77,7 +77,7 @@ public class InsertOrder extends AppCompatActivity implements AdapterView.OnItem
         }
 
         insert_order_base_.insertOrder(ordered_drink,ordered_bottle,getIntent().getStringExtra("customer_ordered"),ordered_number);
-        //finish();
+        finish();
     }
 
     public void bottleNext(View view) {

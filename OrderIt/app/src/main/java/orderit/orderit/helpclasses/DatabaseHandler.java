@@ -172,13 +172,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db_.insert(DatabaseContract.order.TABLE_NAME, null, values);
     }
 
-    public void deleteOrder(String drink, String bottle, String customer) {
+    public void deleteOrder(String id) {
 
         db_ = this.getWritableDatabase();
 
-        String selection = DatabaseContract.order.COLUMN_NAME_DRINK + " LIKE ? and " + DatabaseContract.order.COLUMN_NAME_BOTTLE + " LIKE ? and " + DatabaseContract.order.COLUMN_NAME_CUSTOMER + " LIKE ?";
-        String[] selectionArgs = { drink, bottle, customer };
-        db_.delete(DatabaseContract.customer.TABLE_NAME, selection, selectionArgs);
+        String selection = DatabaseContract.order._ID + " LIKE ?";
+        String[] selectionArgs = { id };
+        db_.delete(DatabaseContract.order.TABLE_NAME, selection, selectionArgs);
 
     }
 
@@ -310,5 +310,51 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return customers;
     }
 
+    public ArrayList<Order> readOrders(String customer_name) {
+
+        db_ = this.getReadableDatabase();
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                DatabaseContract.order._ID,
+                DatabaseContract.order.COLUMN_NAME_BOTTLE,
+                DatabaseContract.order.COLUMN_NAME_DRINK,
+                DatabaseContract.order.COLUM_NAME_NUMBER
+        };
+
+        // Filter results WHERE "title" = 'My Title'
+        String selection = DatabaseContract.order.COLUMN_NAME_CUSTOMER + " = ?";
+        String[] selectionArgs = { customer_name };
+
+        // How you want the results sorted in the resulting Cursor
+        String sortOrder =
+                DatabaseContract.order.COLUMN_NAME_DRINK + " COLLATE NOCASE ASC";
+
+        Cursor c = db_.query(
+                DatabaseContract.order.TABLE_NAME,       // The table to query
+                projection,                               // The columns to return
+                selection,                                // The columns for the WHERE clause
+                selectionArgs,                                     // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                sortOrder                                 // The sort order
+        );
+
+
+        ArrayList<Order> orders = new ArrayList<Order>();
+        c.moveToFirst();
+        for(int i = 0; i < c.getCount(); i++) {
+            long itemId = c.getLong(c.getColumnIndexOrThrow(DatabaseContract.order._ID));
+            orders.add(new Order(itemId,
+                                 c.getString(c.getColumnIndexOrThrow(DatabaseContract.order.COLUMN_NAME_DRINK)),
+                                 c.getString(c.getColumnIndexOrThrow(DatabaseContract.order.COLUMN_NAME_BOTTLE)),
+                                 customer_name,
+                                 c.getString(c.getColumnIndexOrThrow(DatabaseContract.order.COLUM_NAME_NUMBER))));
+            c.moveToNext();
+        }
+
+        return orders;
+    }
 
 }

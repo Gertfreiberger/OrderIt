@@ -31,7 +31,7 @@ public class Bottle {
     }
 
     public String convertBottletoString() {
-        String str = this.getBottleName() + " ....... " + this.getBottleSize();
+        String str = this.getBottleName() + " - " + this.getBottleSize();
         return str;
     }
 }

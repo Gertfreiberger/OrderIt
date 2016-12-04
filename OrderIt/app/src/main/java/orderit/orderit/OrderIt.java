@@ -1,16 +1,23 @@
 package orderit.orderit;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import orderit.orderit.helpclasses.Customer;
 import orderit.orderit.helpclasses.DatabaseHandler;
+import orderit.orderit.helpclasses.Order;
 import orderit.orderit.insertintents.InsertBottles;
 import orderit.orderit.insertintents.InsertCustomers;
 import orderit.orderit.insertintents.InsertDrinks;
@@ -44,7 +51,7 @@ public class OrderIt extends AppCompatActivity {
     }
 
     public void initDBase() {
-        dbase_.insertDrink("Apfel");
+        /*dbase_.insertDrink("Apfel");
         dbase_.insertDrink("Birne");
         dbase_.insertDrink("Haselnuss");
         dbase_.insertDrink("Advent");
@@ -54,7 +61,7 @@ public class OrderIt extends AppCompatActivity {
         dbase_.insertBottle("Sonne", "200ml");
         dbase_.insertCustomer("Franz");
         dbase_.insertCustomer("Horst");
-        dbase_.insertCustomer("Nelli");
+        dbase_.insertCustomer("Nelli");*/
     }
 
     public void createCustomerList() {
@@ -67,9 +74,33 @@ public class OrderIt extends AppCompatActivity {
         for(int i = 0; i < customers.size(); i++) {
             LinearLayout layout = new LinearLayout(this);
             layout.setOrientation(LinearLayout.VERTICAL);
+            layout.setBackgroundColor(Color.BLACK);
             orders_.addView(layout);
             customer_list_.add(new Customer(customers.get(i), layout, getApplicationContext()));
         }
+    }
+
+    public void alert(final Button butt, String name, final HashMap<Button, Order> orders_to_delete) {
+        AlertDialog.Builder build = new AlertDialog.Builder(this);
+        build.setTitle("Kunde: " + name);
+        build.setMessage("Bestellung " + orders_to_delete.get(butt).convertOrderToString() + " wirklich löschen?");
+        build.setCancelable(false);
+
+        build.setPositiveButton("Nein", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        build.setNegativeButton("Ja", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dbase_.deleteOrder(orders_to_delete.get(butt).getId());
+                //openOrders();
+            }
+        });
+        build.create().show();
     }
 
     @Override
