@@ -1,9 +1,11 @@
 package orderit.orderit.insertintents;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -87,9 +89,29 @@ public class InsertDrinks extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        TextView v = (TextView) view;
-        insert_drinks_base_.deleteDrink(v.getText().toString());
-        drink_layout_.removeView(view);
+        final TextView v = (TextView) view;
+
+        AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+        dlg.setTitle("Schnäpse");
+        dlg.setCancelable(false);
+        dlg.setMessage(v.getText() + " wirklich löschen?");
+
+        dlg.setPositiveButton("Nein", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        dlg.setNegativeButton("Ja", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                insert_drinks_base_.deleteDrink(v.getText().toString());
+                drink_layout_.removeView(v);
+            }
+        });
+
+        dlg.create().show();
     }
 }
 

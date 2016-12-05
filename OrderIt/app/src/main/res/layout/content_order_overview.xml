@@ -2,45 +2,43 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_order_it"
+    android:id="@+id/content_order_overview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="orderit.orderit.OrderIt"
-    tools:showIn="@layout/activity_order_it">
+    tools:context="orderit.orderit.overviewintents.OrderOverview"
+    tools:showIn="@layout/activity_order_overview">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:background="@color/colorBlack"
         android:weightSum="7"
         android:layout_alignParentStart="true">
 
 
         <TextView
-            android:text="@string/textview_customer_order_headline"
+            android:text="@string/textview_customer_order_overview_headline"
             android:layout_width="match_parent"
             android:layout_height="@dimen/zero_dp"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorBlack"
             android:gravity="center"
             android:textSize="@dimen/text_headline"
             android:layout_weight="1"
-            android:onClick="openOrderOverview"
-            android:id="@+id/textView_headline_orderit" />
+            android:onClick="closeOrderOverview"
+            android:id="@+id/textView_headline_orderoverview" />
 
-
-        <ScrollView
+        <ListView
             android:layout_width="match_parent"
+            android:layout_height="@dimen/zero_dp"
             android:layout_weight="6"
-            android:layout_height="@dimen/zero_dp">
+            android:id="@+id/listview_order_overview"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/content_orders"
-                android:orientation="vertical" />
-        </ScrollView>
     </LinearLayout>
+
 </RelativeLayout>

@@ -1,8 +1,10 @@
 package orderit.orderit.insertintents;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -93,10 +95,30 @@ public class InsertBottles extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        TextView v = (TextView) view;
-        String[] bottle_parameters = v.getText().toString().split(" ");
-        insert_bottle_base_.deleteBottle(bottle_parameters[0], bottle_parameters[2]);
-        bottle_layout_.removeView(view);
+        final TextView v = (TextView) view;
+        final String[] bottle_parameters = v.getText().toString().split(" ");
+
+        AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+        dlg.setTitle("Flaschen");
+        dlg.setCancelable(false);
+        dlg.setMessage(v.getText() + " wirklich löschen?");
+
+        dlg.setPositiveButton("Nein", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        dlg.setNegativeButton("Ja", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                insert_bottle_base_.deleteBottle(bottle_parameters[0], bottle_parameters[2]);
+                bottle_layout_.removeView(v);
+            }
+        });
+
+        dlg.create().show();
     }
 }
 

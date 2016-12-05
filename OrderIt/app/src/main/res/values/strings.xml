@@ -30,7 +30,10 @@
     <string name="button_order_bottles">Flaschen</string>
     <string name="button_order_back">Zurück</string>
     <string name="button_order_finish">OK</string>
+    <string name="title_activity_order_overview">OrderOverview</string>
 
+    //OderOverview
+    <string name="textview_customer_order_overview_headline">Gesamtbestellungen</string>
 
 
 </resources>

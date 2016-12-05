@@ -7,10 +7,15 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,13 +26,16 @@ import orderit.orderit.helpclasses.Order;
 import orderit.orderit.insertintents.InsertBottles;
 import orderit.orderit.insertintents.InsertCustomers;
 import orderit.orderit.insertintents.InsertDrinks;
+import orderit.orderit.insertintents.InsertOrder;
+import orderit.orderit.overviewintents.OrderOverview;
 
 
-public class OrderIt extends AppCompatActivity {
+public class OrderIt extends AppCompatActivity implements View.OnClickListener{
 
     private DatabaseHandler dbase_;
     private ArrayList<Customer> customer_list_;
     private LinearLayout orders_;
+    private AlertDialog.Builder build_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +47,7 @@ public class OrderIt extends AppCompatActivity {
         orders_ = (LinearLayout) findViewById(R.id.content_orders);
         customer_list_ = new ArrayList<Customer>();
         dbase_ = new DatabaseHandler(getApplicationContext());
+        build_ = new AlertDialog.Builder(this);
         initDBase();
         createCustomerList();
     }
@@ -46,29 +55,31 @@ public class OrderIt extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-
         createCustomerList();
     }
 
     public void initDBase() {
-        /*dbase_.insertDrink("Apfel");
-        dbase_.insertDrink("Birne");
+        dbase_.insertDrink("Tussi");
+        dbase_.insertDrink("Zirbe");
         dbase_.insertDrink("Haselnuss");
         dbase_.insertDrink("Advent");
         dbase_.insertDrink("Beeren");
         dbase_.insertBottle("Stern", "200ml");
         dbase_.insertBottle("Bär", "200ml");
         dbase_.insertBottle("Sonne", "200ml");
+        dbase_.insertBottle("Engel", "200ml");
+        dbase_.insertBottle("Bega", "100ml");
+        dbase_.insertBottle("Bega", "500ml");
         dbase_.insertCustomer("Franz");
         dbase_.insertCustomer("Horst");
-        dbase_.insertCustomer("Nelli");*/
+        dbase_.insertCustomer("Nelli");
     }
 
     public void createCustomerList() {
 
         orders_.removeAllViews();
         customer_list_.clear();
-        ArrayList<String> customers;
+        final ArrayList<String> customers;
         customers = dbase_.readCustomer();
 
         for(int i = 0; i < customers.size(); i++) {
@@ -78,29 +89,96 @@ public class OrderIt extends AppCompatActivity {
             orders_.addView(layout);
             customer_list_.add(new Customer(customers.get(i), layout, getApplicationContext()));
         }
+
+        for(int i= 0; i < customer_list_.size(); i++) {
+
+            Button new_order = new Button(this);
+            new_order.setOnClickListener(this);
+
+            Button open_order = new Button(this);
+            open_order.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+
+                    Button butt = (Button) view;
+                    for(Customer cust: customer_list_) {
+                        if(butt.equals(cust.getOpenOrderButton())) {
+
+                            if(cust.getStateOpen() == false) {
+                                cust.setStateOpen(true);
+                                cust.getOpenOrderButton().setText("-");
+                                cust.getOpenOrderButton().setTextColor(Color.RED);
+                                openOrders(cust);
+                            }
+                            else {
+                                closeOrders(cust);
+                            }
+                        }
+                    }
+                }
+            });
+            customer_list_.get(i).createCustomer(open_order,new_order);
+        }
     }
 
-    public void alert(final Button butt, String name, final HashMap<Button, Order> orders_to_delete) {
-        AlertDialog.Builder build = new AlertDialog.Builder(this);
-        build.setTitle("Kunde: " + name);
-        build.setMessage("Bestellung " + orders_to_delete.get(butt).convertOrderToString() + " wirklich löschen?");
-        build.setCancelable(false);
+    public void openOrders(final Customer customer) {
 
-        build.setPositiveButton("Nein", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        customer.getLayoutOrders().removeAllViews();
+        customer.getOrdersToDelete().clear();
+        customer.setOrders(dbase_.readOrders(customer.getName()));
 
-            }
-        });
+        if(customer.getOrders().size() == 0) {
+            closeOrders(customer);
+            return;
+        }
 
-        build.setNegativeButton("Ja", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dbase_.deleteOrder(orders_to_delete.get(butt).getId());
-                //openOrders();
-            }
-        });
-        build.create().show();
+        for(Order order: customer.getOrders()) {
+
+            Button delete_order = new Button(this);
+
+            delete_order.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+
+                    final Button butt = (Button) view;
+
+
+                    build_.setTitle("Kunde: " + customer.getName());
+                    build_.setMessage("Bestellung " + customer.getOrdersToDelete().get(butt).convertOrderToString() + " wirklich löschen?");
+                    build_.setCancelable(false);
+
+                    build_.setPositiveButton("Nein", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+
+                    build_.setNegativeButton("Ja", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dbase_.deleteOrder(customer.getOrdersToDelete().get(butt).getId());
+                            openOrders(customer);
+                            openOrders(customer);
+                        }
+                    });
+                    build_.create().show();
+                }
+            });
+            customer.openOrder(order,delete_order);
+        }
+    }
+
+    public void closeOrders(Customer cust) {
+        cust.closeOrders();
+    }
+
+    public void openOrderOverview(View v) {
+
+        Intent overview = new Intent(this,OrderOverview.class);
+        startActivity(overview);
     }
 
     @Override
@@ -134,6 +212,18 @@ public class OrderIt extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onClick(View view) {
+
+        Button butt = (Button) view;
+        for(Customer cust: customer_list_) {
+            if(butt.equals(cust.getNewOrderButton())) {
+                Intent order = new Intent(this, InsertOrder.class);
+                order.putExtra("customer_ordered", cust.getName());
+                startActivity(order);
+            }
+        }
+    }
 }
 
 

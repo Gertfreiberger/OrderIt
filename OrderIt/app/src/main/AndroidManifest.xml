@@ -33,6 +33,10 @@
         <activity
             android:name=".insertintents.InsertOrder"
             android:label="@string/title_activity_insert_order"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".overviewintents.OrderOverview"
+            android:label="@string/title_activity_order_overview"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
