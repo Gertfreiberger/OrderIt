@@ -3,25 +3,44 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="order_text_size">20sp</dimen>
-    <dimen name="insert_order_list_view_size">28sp</dimen>
-    <dimen name="insert_drink_text_size">16sp</dimen>
-    <dimen name="insert_drink_leave_button_width">80dp</dimen>
-    <dimen name="insert_order_toggle_leave_button_width">100dp</dimen>
-    <dimen name="insert_drink_leave_button_height">60dp</dimen>
+
+
+    //general
+    <dimen name="zero_dp">0dp</dimen>
+    <dimen name="list_view_padding">5dp</dimen>
+    <dimen name="scroll_view_padding">10dp</dimen>
+
+    //orderit
     <dimen name="new_order_button">20dp</dimen>
-    <dimen name="insert_layout_height">50dp</dimen>
     <dimen name="delete_order_button_width">8dp</dimen>
     <dimen name="delete_order_button_height">6dp</dimen>
+
+
+    //insertDrink
+    <dimen name="insert_drink_leave_button_width">80dp</dimen>
+    <dimen name="insert_drink_leave_button_height">60dp</dimen>
+    <dimen name="insert_layout_height">50dp</dimen>
     <dimen name="insert_textview_width">120dp</dimen>
     <dimen name="scrollview_height">300dp</dimen>
+
+    //insertOrder
+    <dimen name="insert_order_toggle_leave_button_width">100dp</dimen>
+
+
+    //insertBottle
     <dimen name="scrollview_height_bottles">250dp</dimen>
+
+
+
+    //text_sizes
     <dimen name="text_size_for_lists">16sp</dimen>
     <dimen name="text_size_for_customers_lists">12sp</dimen>
     <dimen name="text_size_for_orders_lists">10sp</dimen>
     <dimen name="text_headline">20sp</dimen>
-    <dimen name="zero_dp">0dp</dimen>
-    <dimen name="list_view_padding">5dp</dimen>
-    <dimen name="scroll_view_padding">10dp</dimen>
+    <dimen name="order_text_size">20sp</dimen>
+    <dimen name="insert_order_list_view_size">28sp</dimen>
+    <dimen name="order_overview_list_size">22sp</dimen>
+    <dimen name="insert_drink_text_size">16sp</dimen>
+
 
 </resources>

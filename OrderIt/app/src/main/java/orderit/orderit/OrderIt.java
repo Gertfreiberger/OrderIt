@@ -48,7 +48,7 @@ public class OrderIt extends AppCompatActivity implements View.OnClickListener{
         customer_list_ = new ArrayList<Customer>();
         dbase_ = new DatabaseHandler(getApplicationContext());
         build_ = new AlertDialog.Builder(this);
-        initDBase();
+        //initDBase();
         createCustomerList();
     }
 
@@ -126,7 +126,7 @@ public class OrderIt extends AppCompatActivity implements View.OnClickListener{
 
         customer.getLayoutOrders().removeAllViews();
         customer.getOrdersToDelete().clear();
-        customer.setOrders(dbase_.readOrders(customer.getName()));
+        customer.setOrders(dbase_.readOrdersforCustomer(customer.getName()));
 
         if(customer.getOrders().size() == 0) {
             closeOrders(customer);

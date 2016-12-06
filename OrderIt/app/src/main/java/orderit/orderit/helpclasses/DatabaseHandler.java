@@ -310,7 +310,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return customers;
     }
 
-    public ArrayList<Order> readOrders(String customer_name) {
+    public ArrayList<Order> readOrdersforCustomer(String customer_name) {
 
         db_ = this.getReadableDatabase();
 
@@ -355,6 +355,67 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         return orders;
+    }
+
+    public ArrayList<String> readOrderOverviewList() {
+
+        db_ = this.getReadableDatabase();
+
+        ArrayList<String> drinks = readDrinks();
+        ArrayList<Bottle> bottle_list = readBottles();
+        ArrayList<String> bottles = new ArrayList<String>();
+        ArrayList<String> order_overview = new ArrayList<String>();
+        String string_number;
+        int number = 0;
+
+        String[] projection = {
+                DatabaseContract.order.COLUMN_NAME_BOTTLE,
+                DatabaseContract.order.COLUMN_NAME_DRINK,
+                DatabaseContract.order.COLUM_NAME_NUMBER
+        };
+
+        String sortOrder =
+                DatabaseContract.order.COLUMN_NAME_CUSTOMER + " COLLATE NOCASE ASC";
+
+        String selection = DatabaseContract.order.COLUMN_NAME_DRINK + " = ? and " + DatabaseContract.order.COLUMN_NAME_BOTTLE + " = ?";
+
+
+        for(int i = 0; i < bottle_list.size(); i++) {
+            bottles.add(bottle_list.get(i).convertBottletoString());
+        }
+
+        for(String drink: drinks) {
+
+            for(String bottle: bottles) {
+
+                String[] selectionArgs = { drink, bottle };
+
+                Cursor c = db_.query(
+                        DatabaseContract.order.TABLE_NAME,       // The table to query
+                        projection,                               // The columns to return
+                        selection,                                // The columns for the WHERE clause
+                        selectionArgs,                                     // The values for the WHERE clause
+                        null,                                     // don't group the rows
+                        null,                                     // don't filter by row groups
+                        sortOrder                                 // The sort order
+                );
+
+                if( c.moveToFirst() ) {
+                    number = 0;
+                    for(int i = 0; i < c.getCount(); i++) {
+                        string_number = c.getString(c.getColumnIndexOrThrow(DatabaseContract.order.COLUM_NAME_NUMBER));
+                        number += Integer.parseInt(string_number);
+
+                        c.moveToNext();
+                    }
+
+                    order_overview.add(drink + " " + bottle + " " + number);
+                }
+            }
+
+        }
+        return order_overview;
+
     }
 
 }

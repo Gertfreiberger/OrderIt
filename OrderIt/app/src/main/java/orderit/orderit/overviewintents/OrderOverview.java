@@ -36,8 +36,8 @@ public class OrderOverview extends AppCompatActivity {
     }
 
     public void createOrderOVerviewList() {
-        ArrayList<String> drinks = order_overview_base_.readDrinks();
-        orders_ = new ArrayAdapter<String>(this, R.layout.text_view_list_item_order, drinks);
+        ArrayList<String> order_overview = order_overview_base_.readOrderOverviewList();
+        orders_ = new ArrayAdapter<String>(this, R.layout.text_view_list_item_order_overview, order_overview);
     }
 
     public void closeOrderOverview(View v){
