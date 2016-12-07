@@ -38,6 +38,7 @@
     <dimen name="text_size_for_orders_lists">10sp</dimen>
     <dimen name="text_headline">20sp</dimen>
     <dimen name="order_text_size">20sp</dimen>
+    <dimen name="order_description_text_size">16sp</dimen>
     <dimen name="insert_order_list_view_size">28sp</dimen>
     <dimen name="order_overview_list_size">22sp</dimen>
     <dimen name="insert_drink_text_size">16sp</dimen>

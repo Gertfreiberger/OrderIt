@@ -27,6 +27,7 @@ public class InsertOrder extends AppCompatActivity implements AdapterView.OnItem
     private TextView orderd_drink_;
     private TextView orderd_bottle_;
     private EditText orderd_number_;
+    private EditText order_description_;
     private Button toggle_button_;
     private boolean state_drinks_;
     private ArrayAdapter<String> drinks_;
@@ -44,6 +45,7 @@ public class InsertOrder extends AppCompatActivity implements AdapterView.OnItem
         orderd_drink_ = (TextView) findViewById(R.id.textview_insert_order_drink);
         orderd_bottle_ = (TextView) findViewById(R.id.textview_insert_order_bottle);
         orderd_number_ = (EditText) findViewById(R.id.text_box_insert_order);
+        order_description_ = (EditText) findViewById(R.id.text_box_description);
         toggle_button_ = (Button) findViewById(R.id.button_insert_order_next);
         insert_order_base_ = new DatabaseHandler(getApplicationContext());
         list_view_drinks_bottles_.setOnItemClickListener(this);
@@ -71,12 +73,13 @@ public class InsertOrder extends AppCompatActivity implements AdapterView.OnItem
         String ordered_drink = orderd_drink_.getText().toString().trim();
         String ordered_bottle = orderd_bottle_.getText().toString().trim();
         String ordered_number = orderd_number_.getText().toString().trim();
+        String order_description = order_description_.getText().toString().trim();
 
         if(ordered_drink.isEmpty() | ordered_bottle.isEmpty() | ordered_number.isEmpty()) {
             return;
         }
 
-        insert_order_base_.insertOrder(ordered_drink,ordered_bottle,getIntent().getStringExtra("customer_ordered"),ordered_number);
+        insert_order_base_.insertOrder(ordered_drink,ordered_bottle,getIntent().getStringExtra("customer_ordered"),ordered_number, order_description);
         finish();
     }
 

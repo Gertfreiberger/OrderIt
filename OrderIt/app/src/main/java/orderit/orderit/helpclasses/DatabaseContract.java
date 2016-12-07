@@ -39,5 +39,6 @@ public final class DatabaseContract {
         public static final String COLUMN_NAME_CUSTOMER = "customer";
         public static final String COLUMN_NAME_BOTTLE = "bottle";
         public static final String COLUM_NAME_NUMBER = "number";
+        public static final String COLLUM_NAME_DESCRIPTION = "description";
     }
 }

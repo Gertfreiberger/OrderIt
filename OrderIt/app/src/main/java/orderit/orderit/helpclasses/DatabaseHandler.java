@@ -46,7 +46,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     DatabaseContract.order.COLUMN_NAME_DRINK + TEXT_TYPE +  COMMA_SEP +
                     DatabaseContract.order.COLUMN_NAME_CUSTOMER + TEXT_TYPE + COMMA_SEP +
                     DatabaseContract.order.COLUMN_NAME_BOTTLE +TEXT_TYPE + COMMA_SEP +
-                    DatabaseContract.order.COLUM_NAME_NUMBER + TEXT_TYPE + " )";
+                    DatabaseContract.order.COLUM_NAME_NUMBER + TEXT_TYPE + COMMA_SEP +
+                    DatabaseContract.order.COLLUM_NAME_DESCRIPTION + TEXT_TYPE + " )";
 
     private static final String SQL_DELETE_ENTRIES_DRINKS =
             "DROP TABLE IF EXISTS " + DatabaseContract.drinks.TABLE_NAME;
@@ -157,7 +158,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db_.delete(DatabaseContract.customer.TABLE_NAME, selection, selectionArgs);
     }
 
-    public void insertOrder(String drink, String bottle, String customer, String number) {
+    public void insertOrder(String drink, String bottle, String customer, String number, String dest) {
 
         db_ = this.getWritableDatabase();
 
@@ -167,6 +168,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(DatabaseContract.order.COLUMN_NAME_BOTTLE, bottle);
         values.put(DatabaseContract.order.COLUMN_NAME_CUSTOMER, customer);
         values.put(DatabaseContract.order.COLUM_NAME_NUMBER, number);
+        values.put(DatabaseContract.order.COLLUM_NAME_DESCRIPTION, dest);
 
         // Insert the new row, returning the primary key value of the new row
         db_.insert(DatabaseContract.order.TABLE_NAME, null, values);
@@ -320,7 +322,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 DatabaseContract.order._ID,
                 DatabaseContract.order.COLUMN_NAME_BOTTLE,
                 DatabaseContract.order.COLUMN_NAME_DRINK,
-                DatabaseContract.order.COLUM_NAME_NUMBER
+                DatabaseContract.order.COLUM_NAME_NUMBER,
+                DatabaseContract.order.COLLUM_NAME_DESCRIPTION
         };
 
         // Filter results WHERE "title" = 'My Title'
@@ -350,7 +353,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                  c.getString(c.getColumnIndexOrThrow(DatabaseContract.order.COLUMN_NAME_DRINK)),
                                  c.getString(c.getColumnIndexOrThrow(DatabaseContract.order.COLUMN_NAME_BOTTLE)),
                                  customer_name,
-                                 c.getString(c.getColumnIndexOrThrow(DatabaseContract.order.COLUM_NAME_NUMBER))));
+                                 c.getString(c.getColumnIndexOrThrow(DatabaseContract.order.COLUM_NAME_NUMBER)),
+                                 c.getString(c.getColumnIndexOrThrow(DatabaseContract.order.COLLUM_NAME_DESCRIPTION))));
             c.moveToNext();
         }
 

@@ -9,14 +9,16 @@ public class Order {
     private String drink_name_;
     private String bottle_name_;
     private String customer_name_;
+    private String description_;
     private String number_;
     private long id_;
 
 
-    public Order(long id, String drink_name, String bottle_name, String customer_name, String number) {
+    public Order(long id, String drink_name, String bottle_name, String customer_name, String number, String dest) {
 
         id_ = id;
         drink_name_ = drink_name;
+        description_ = dest;
         bottle_name_ = bottle_name;
         customer_name_ = customer_name;
         number_ = number;
@@ -60,12 +62,26 @@ public class Order {
         return id;
     }
 
+    public void setDescription(String dest) {
+        description_ = dest;
+    }
+
+    public String getDescription() {
+        return description_;
+    }
+
     public void setId(long id) {
         this.id_ = id;
     }
 
     public String convertOrderToString() {
-        String order = drink_name_ + "  " + bottle_name_ + "  " + number_;
+        String order;
+        if(description_.isEmpty()) {
+            order = drink_name_ + "  " + bottle_name_ + "  " + number_;
+        }
+        else {
+            order = drink_name_ + "  " + bottle_name_ + "  " + number_ + "\n" + description_;
+        }
         return order;
     }
 }

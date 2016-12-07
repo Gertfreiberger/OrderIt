@@ -8,11 +8,14 @@
     <string name="title_activity_insert_bottles">Flaschen einfügen/löschen</string>
     <string name="title_activity_insert_customers">Kunden einfügen/löschen</string>
     <string name="title_activity_insert_order">Neue Bestellung</string>
+    <string name="title_activity_order_overview">Bestellungsübersicht</string>
+
+
+    //orderit
     <string name="textview_customer_order_headline">Bestellungen</string>
 
 
     //insertDrinks
-
     <string name="textview_new_drink">Neuer Schnaps: </string>
     <string name="button_new_drink">Speichern</string>
     <string name="button_leave_insert_drink">OK</string>
@@ -30,7 +33,7 @@
     <string name="button_order_bottles">Flaschen</string>
     <string name="button_order_back">Zurück</string>
     <string name="button_order_finish">OK</string>
-    <string name="title_activity_order_overview">OrderOverview</string>
+    <string name="textview_description">Anmerkungen: </string>
 
     //OderOverview
     <string name="textview_customer_order_overview_headline">Gesamtbestellungen</string>
