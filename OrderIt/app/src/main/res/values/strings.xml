@@ -38,6 +38,11 @@
     //OderOverview
     <string name="textview_customer_order_overview_headline">Gesamtbestellungen</string>
 
+    //Edit description
+    <string name="edit_dest">Anmerkung</string>
+    <string name="edit_dest_save">Ok</string>
+    <string name="edit_dest_cancel">Abbrechen</string>
+
 
 </resources>
 

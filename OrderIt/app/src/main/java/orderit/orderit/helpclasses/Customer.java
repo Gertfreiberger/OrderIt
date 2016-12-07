@@ -26,6 +26,7 @@ public class Customer{
     private Button open_order_;
     private Button new_order_;
     private HashMap<Button, Order> orders_to_delete_;
+    private HashMap<TextView, Order> order_text_views_;
     private boolean state_open_;
     private ArrayList<Order> orders_;
 
@@ -36,6 +37,7 @@ public class Customer{
         context_ = context;
         state_open_ = false;
         orders_to_delete_ = new HashMap<Button, Order>();
+        order_text_views_ = new HashMap<TextView, Order>();
     }
 
     public void createCustomer(Button open_order, Button new_order) {
@@ -100,7 +102,7 @@ public class Customer{
     }
 
 
-    public void openOrder(Order order, Button delete_order) {
+    public void openOrder(Order order, Button delete_order, TextView order_view) {
 
         LinearLayout order_layout_view = new LinearLayout(context_);
         order_layout_view.setOrientation(LinearLayout.HORIZONTAL);
@@ -109,14 +111,13 @@ public class Customer{
         order_layout_view.setPadding(0,2,0,2);
         layout_orders_.addView(order_layout_view);
 
-        TextView text_view = new TextView(context_);
-        text_view.setText(order.convertOrderToString());
-        text_view.setTextSize(context_.getResources().getDimension(R.dimen.text_size_for_orders_lists));
-        text_view.setTextColor(Color.WHITE);
-        text_view.setGravity(Gravity.CENTER);
-        text_view.setBackgroundColor(Color.GRAY);
-        text_view.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 4f));
-        order_layout_view.addView(text_view);
+        order_view.setText(order.convertOrderToString());
+        order_view.setTextSize(context_.getResources().getDimension(R.dimen.text_size_for_orders_lists));
+        order_view.setTextColor(Color.WHITE);
+        order_view.setGravity(Gravity.CENTER);
+        order_view.setBackgroundColor(Color.GRAY);
+        order_view.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 4f));
+        order_layout_view.addView(order_view);
 
         LinearLayout order_layout_button = new LinearLayout(context_);
         order_layout_button.setOrientation(LinearLayout.VERTICAL);
@@ -135,7 +136,7 @@ public class Customer{
 
         order_layout_button.addView(delete_order);
         orders_to_delete_.put(delete_order,order);
-
+        order_text_views_.put(order_view, order);
     }
 
     public void closeOrders() {
@@ -183,6 +184,10 @@ public class Customer{
 
     public HashMap<Button, Order> getOrdersToDelete() {
         return orders_to_delete_;
+    }
+
+    public HashMap<TextView, Order> getOrderTextViews() {
+        return order_text_views_;
     }
 
     public  ArrayList<Order> getOrders() {

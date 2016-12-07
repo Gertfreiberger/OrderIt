@@ -174,6 +174,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db_.insert(DatabaseContract.order.TABLE_NAME, null, values);
     }
 
+    public void updateOrder(Order new_order) {
+
+
+        db_ = this.getWritableDatabase();
+
+        // Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+        values.put(DatabaseContract.order.COLUMN_NAME_DRINK, new_order.getDrinkName());
+        values.put(DatabaseContract.order.COLUMN_NAME_BOTTLE, new_order.getBottleName());
+        values.put(DatabaseContract.order.COLUMN_NAME_CUSTOMER, new_order.getCustomerName());
+        values.put(DatabaseContract.order.COLUM_NAME_NUMBER, new_order.getNumber());
+        values.put(DatabaseContract.order.COLLUM_NAME_DESCRIPTION, new_order.getDescription());
+
+        String selection = DatabaseContract.order._ID + " LIKE ?";
+        String[] selectionArgs = { new_order.getId() };
+
+        db_.update(DatabaseContract.order.TABLE_NAME,values, selection, selectionArgs);
+    }
+
     public void deleteOrder(String id) {
 
         db_ = this.getWritableDatabase();
@@ -421,5 +440,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return order_overview;
 
     }
+
+
 
 }

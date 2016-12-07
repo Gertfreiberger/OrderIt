@@ -1,5 +1,6 @@
 package orderit.orderit;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -36,6 +38,7 @@ public class OrderIt extends AppCompatActivity implements View.OnClickListener{
     private ArrayList<Customer> customer_list_;
     private LinearLayout orders_;
     private AlertDialog.Builder build_;
+    private Dialog dialog_description_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class OrderIt extends AppCompatActivity implements View.OnClickListener{
         customer_list_ = new ArrayList<Customer>();
         dbase_ = new DatabaseHandler(getApplicationContext());
         build_ = new AlertDialog.Builder(this);
+        dialog_description_ = new Dialog(OrderIt.this);
         //initDBase();
         createCustomerList();
     }
@@ -136,6 +140,7 @@ public class OrderIt extends AppCompatActivity implements View.OnClickListener{
         for(Order order: customer.getOrders()) {
 
             Button delete_order = new Button(this);
+            TextView order_view = new TextView(this);
 
             delete_order.setOnClickListener(new View.OnClickListener() {
 
@@ -161,13 +166,54 @@ public class OrderIt extends AppCompatActivity implements View.OnClickListener{
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dbase_.deleteOrder(customer.getOrdersToDelete().get(butt).getId());
                             openOrders(customer);
-                            openOrders(customer);
                         }
                     });
                     build_.create().show();
                 }
             });
-            customer.openOrder(order,delete_order);
+
+            order_view.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+
+                    final TextView text_view = (TextView) view;
+
+
+                    dialog_description_.setContentView(R.layout.edit_description);
+                    dialog_description_.setTitle("Anmerkungen");
+                    dialog_description_.setCancelable(false);
+                    final EditText dest = (EditText) dialog_description_.findViewById(R.id.text_box_edit_dest);
+                    dest.setText(customer.getOrderTextViews().get(text_view).getDescription());
+                    Button save = (Button) dialog_description_.findViewById(R.id.button_edit_dest_save);
+                    Button cancel = (Button) dialog_description_.findViewById(R.id.button_edit_dest_cancel);
+
+                    save.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View view) {
+
+                            customer.getOrderTextViews().get(text_view).setDescription(dest.getText().toString().trim());
+                            dbase_.updateOrder(customer.getOrderTextViews().get(text_view));
+                            openOrders(customer);
+                            dialog_description_.dismiss();
+
+                        }
+                    });
+
+                    cancel.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View view) {
+
+                            dialog_description_.dismiss();
+                        }
+                    });
+                    dialog_description_.show();
+                }
+            });
+
+            customer.openOrder(order,delete_order, order_view);
         }
     }
 

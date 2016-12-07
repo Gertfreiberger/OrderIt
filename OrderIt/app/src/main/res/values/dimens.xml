@@ -43,5 +43,10 @@
     <dimen name="order_overview_list_size">22sp</dimen>
     <dimen name="insert_drink_text_size">16sp</dimen>
 
+    //edit destcription
+    <dimen name="text_view_edit_dest_size">26sp</dimen>
+    <dimen name="button_height_edit_dest">60dp</dimen>
+    <dimen name="edit_dest_dialog_size">200dp</dimen>
+
 
 </resources>
